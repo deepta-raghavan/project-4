@@ -9,41 +9,35 @@ public class NetAnalysis implements NetAnalysis_Inter{
     public static ComputerNetwork g;
     public static Scanner scanner;
     public static DijkstraAllPairsSP shortestPaths;
+    private int numVertices;
+    private int point1;
+    private int point2;
+    private String cableType;
+    private int cableLength;
 
-    public NetAnalysis(String filename){
-        System.out.println("Loading graph....");
+    public NetAnalysis(String fileName){
+        try (Scanner s = new Scanner(new File(fileName))) {
+            if (s.hasNextLine()) {
+                String line = s.nextLine();
+                numVertices = Integer.parseInt(line);
 
-        try {
-            BufferedReader in = new BufferedReader(new FileReader(filename));
-            int V = Integer.parseInt(in.readLine());
-            g = new ComputerNetwork(V);
-            String line;
-            while ((line = in.readLine()) != null) {
-                String[] edgeData = line.split(" ");
-                NetworkEdge e = createEdge(edgeData);
-                g.addEdge(e);
-                String tmpVertex = edgeData[0];
-                edgeData[0] = edgeData[1];
-                edgeData[1] = tmpVertex;
-                NetworkEdge otherE = createEdge(edgeData);
-                g.addEdge(otherE);
-                shortestPaths = new DijkstraAllPairsSP(g);
+                while (s.hasNext()) {
+                    line = s.nextLine();
+
+                    String[] attributes = line.split(" ");
+                    point1 = Integer.parseInt(attributes[0]);
+                    point2 = Integer.parseInt(attributes[1]);
+                    cableType = attributes[2];
+                    cableLength = Integer.parseInt(attributes[3]);
+
+                    NetworkEdge edge = new NetworkEdge(point1, point2, cableType, cableLength);
+
+                }
             }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Could not load file.");
         } catch (IOException e) {
-            System.out.println("Error processing file.");
+            System.out.println("An Error Occurred");
+            e.printStackTrace();
         }
-    }
-
-    public static NetworkEdge createEdge(String[] edgeData) {
-        int from = Integer.parseInt(edgeData[0]);
-        int to = Integer.parseInt(edgeData[1]);
-        String type = edgeData[2];
-        int capacity = Integer.parseInt(edgeData[3]);
-        int length = Integer.parseInt(edgeData[4]);
-        return new NetworkEdge(from, to, capacity, length, type);
     }
 
 
