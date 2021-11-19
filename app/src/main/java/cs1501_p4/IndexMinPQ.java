@@ -1,5 +1,3 @@
-package cs1501_p4;
-
 /******************************************************************************
  *  Compilation:  javac IndexMinPQ.java
  *  Execution:    java IndexMinPQ
@@ -8,7 +6,7 @@ package cs1501_p4;
  *  Minimum-oriented indexed PQ implementation using a binary heap.
  *
  ******************************************************************************/
-
+package cs1501_p4;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 

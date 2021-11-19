@@ -7,9 +7,7 @@ import java.util.Set;
 public class ComputerNetwork {
     private int V;
     private int E;
-    /*
-     The book implementation uses a Bag. I changed this to use a Linked List.
-    */
+
     private LinkedList<NetworkEdge>[] adj;
 
     @SuppressWarnings("unchecked")
